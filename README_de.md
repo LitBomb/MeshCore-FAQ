@@ -144,6 +144,9 @@ MeshCore-Clients melden sich nur dann selbst an, wenn der Benutzer dies initiier
 ### F: Wie konfiguriert man einen Repeater oder einen Raumserver?
 **A:** Einer dieser Server kann mit einer der folgenden Optionen verwaltet werden:
 - Nachdem die Firmware eines Repeaters oder Raumservers auf ein LoRa-Gerät übertragen wurde, rufe <https://config.meshcore.dev> mit Chrome auf und verbinde dich über die Weboberfläche per USB-Seriell mit dem LoRa-Gerät. Dort kannst du den Namen des Servers, seine Frequenz und weitere zugehörige Einstellungen, Standort, Passwörter usw. festlegen.
+
+![444798777-4c888b61-4f60-49f3-bef8-81592cd660c3](https://github.com/user-attachments/assets/ed3910ba-5110-4f72-ab98-a603cbbf134b)
+
 - Wenn MeshCore zum ersten Mal auf ein LoRa-Gerät geflasht wird, muss die Frequenz des Servergeräts eingestellt werden, damit es die in deinem Land oder deiner Region zulässige Frequenz nutzt. Dies ist erforderlich, um die Frequenz des Servergeräts einzustellen, falls diese nicht mit der Frequenz deiner Region oder deines Landes übereinstimmt.
 - MeshCore-Smart-Device-Clients können Server fernverwalten.
 - Ein T-Deck mit freigeschalteter/registrierter MeshCore-Firmware. Die Fernverwaltung des Servers wird durch die Registrierung deines T-Decks bei Ripple Radios ermöglicht. Dies ist eine Möglichkeit, die MeshCore-Entwicklung zu unterstützen. Du kannst dein T-Deck hier registrieren:
