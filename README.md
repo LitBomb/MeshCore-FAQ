@@ -169,14 +169,16 @@ The T-Deck firmware is free to download and most features are available without 
 - Canada and USA are on **910.525MHz**
 - For other regions and countries, please check your local LoRa frequency
 
-869,525Mhz allows an airtime of 10% and a higher EIRP, therefor MeshCore nodes can send more often and with more power. That is why this frequency is chosen for UK and EU.  This is also why Meshtastic also uses this frequency.  
+In UK and EU, 867.5MHz is not allowed to use 250kHz bandwidth and it only allows 2.5% duty cycle for clients.  869.525Mhz allows an airtime of 10%, 250KHz bandwidth, and a higher EIRP, therefore MeshCore nodes can send more often and with more power. That is why this frequency is chosen for UK and EU.  This is also why Meshtastic also uses this frequency.  
 
 [Source]([https://](https://discord.com/channels/826570251612323860/1330643963501351004/1356540643853209641))
 
 the rest of the radio settings are the same for all frequencies:  
-- Spread Factor (SF): 10  
+- Spread Factor (SF): 11  
 - Coding Rate (CR): 5  
 - Bandwidth (BW): 250.00  
+
+(originally MeshCore started with SF 10.  recently (as of late April 2025) the community has avocated SF 11 also a viable option for longer range but a little slower transmissions.  Currently there are MeshCore meshes with SF 10 and SF 11.  Liam Cottle's smartphone app's presets now recommend SF 10 for Australia and SF 11 for all other regions and countries.  EU and UK has SF 10 and SF 11 presets.  Work with your local meshers on diciding with SF number is best for your use cases.  In the future, there may be bridge nodes that can bridge SF 10 and SF 11 (or even different frequencies) traffic.)
 
 ### 2.4. Q: What is an "advert" in MeshCore?
 **A:** 

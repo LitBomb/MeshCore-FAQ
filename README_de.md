@@ -16,7 +16,7 @@ Autor: https://github.com/LitBomb
 * Die plattformübergreifende mobile App von [Liam Cottle](https://liamcottle.net) für Android/iOS/PC usw. kann kostenlos heruntergeladen und genutzt werden.
 * Die T-Deck-Firmware wurde von Scott von Ripple Radios, dem Entwickler von MeshCore, entwickelt und kann ebenfalls kostenlos auf deine Geräte geflasht und genutzt werden.
 
-Einige erweiterte, aber optionale Funktionen sind auf T-Deck verfügbar, wenn du dein Gerät für einen Entsperrschlüssel registrierst. Auf den MeshCore-Smartphone-Clients für Android und iOS/iPadOS kannst du die Wartezeit für die Fernverwaltung von Repeatern und Raumservern über Funk abschalten.
+Einige erweiterte, aber optionale Funktionen sind auf dem T-Deck verfügbar, wenn du dein Gerät für einen Entsperrschlüssel registrierst. Auf den MeshCore-Smartphone-Clients für Android und iOS/iPadOS kannst du die Wartezeit für die Fernverwaltung von Repeatern und Raumservern über Funk abschalten.
 
 Diese Funktionen sind völlig optional und für das grundlegende Messaging-Erlebnis nicht erforderlich. Diese Funktionen sind wie tolle Bonusfunktionen. Um die Entwickler bei der Weiterentwicklung dieser fantastischen Funktionen zu unterstützen, erheben sie möglicherweise eine geringe Gebühr für einen Freischaltcode zur Nutzung der erweiterten Funktionen.
 
@@ -63,7 +63,7 @@ Repeater dienen zur Erweiterung der Reichweite eines MeshCore-Netzwerks. Die Rep
 #### Room server
 Ein Room Server ist ein einfacher BBS-Server zum Teilen von Beiträgen. T-Deck-Geräte mit MeshCore-Firmware oder ein BLE Companion-Client, der mit einem Smartphone mit MeshCore-App verbunden ist, können sich mit einem Raumserver verbinden.
 
-Raumserver speichern den Nachrichtenverlauf und senden ihn an Nutzer. Nutzer, die sich im Raum befinden, können später auf den Nachrichtenverlauf zugreifen. Im Gegensatz zu Kanälen werden Nachrichten entweder empfangen, wenn sie gesendet werden, oder nicht empfangen und verpasst, wenn sich ein Nutzer außerhalb der Reichweite befindet. Raumserver kannst du dir wie einen E-Mail-Server vorstellen, auf denen du später deine E-Mails abrufen kannst.
+Raumserver speichern den Nachrichtenverlauf und senden ihn an die Nutzer. Nutzer, die sich nicht im Raum befinden, können später auf den Nachrichtenverlauf zugreifen. Anders als bei den Kanälen werden die Nachrichten gespeichert. Room-Server kannst du dir wie E-Mail-Server vorstellen, auf denen du später deine E-Mails abrufen kannst.
 
 Ein Raumserver kann per Fernzugriff über ein T-Deck mit MeshCore-Firmware und freigeschalteten Fernverwaltungsfunktionen oder über einen BLE Companion Client, der mit einem Smartphone mit MeshCore-App verbunden ist, verwaltet werden.
 
@@ -101,6 +101,14 @@ Die T-Deck-Firmware kann kostenlos heruntergeladen werden, und die meisten Funkt
 ### F: Welche Frequenzen werden von MeshCore unterstützt?
 **A:** Es unterstützt den 868-MHz-Bereich in Großbritannien / der EU und den 915-MHz-Bereich in Neuseeland, Australien und den USA. Länder und Regionen in diesen beiden Frequenzbereichen werden ebenfalls unterstützt. Die Firmware und der Client ermöglichen es Nutzern, ihre bevorzugte Frequenz einzustellen.
 
+In Großbritannien und der EU ist die Nutzung der 250-kHz-Bandbreite auf 867,5 MHz nicht gestattet und es ist nur ein Arbeitszyklus von 2,5 % für Clients zulässig. 869,525 MHz ermöglicht eine Sendezeit von 10 %, eine Bandbreite von 250 kHz und eine höhere EIRP (Electronical Reach Rate), wodurch MeshCore-Knoten häufiger und mit mehr Leistung senden können. Deshalb wurde diese Frequenz für Großbritannien und die EU gewählt. Aus diesem Grund nutzt auch Meshtastic diese Frequenz. 
+
+Empfehlung der Entwickler für Netze bis zu 40 Teilnehmern: 
+Frequenz: `869,525 MHz, Bandbreite 250 kHz, Spreizfaktor 11, Coding Rate 5`. Bei Netzen über 40 Teilnehmer kann der Spreizfaktor dann bei allen (!) Teilnehmern auf 10 heruntergesetzt werden.
+
+
+[Quelle](https://discord.com/channels/826570251612323860/1330643963501351004/1356540643853209641)
+ 
 – Australien und Neuseeland nutzen **915,8 MHz**
 – Großbritannien und die EU nutzen **869,525 MHz**
 – Kanada und die USA nutzen **910,525 MHz**
@@ -110,6 +118,8 @@ Die restlichen Funkeinstellungen sind für alle Frequenzen gleich:
 – Spread-Faktor (SF): 11
 – Kodierungsrate (CR): 5
 – Bandbreite (BW): 250,00
+
+(Ursprünglich startete MeshCore mit SF 10. Seit Ende April 2025 empfiehlt die Community auch SF 11 als praktikable Option für Übertragungen mit größerer Reichweite, aber etwas langsameren Frequenzen. Aktuell gibt es MeshCore-Netze mit SF 10 und SF 11. Die Voreinstellungen der Smartphone-App empfehlen nun SF 10 für Australien und SF 11 für alle anderen Regionen und Länder. In der EU und Großbritannien gibt es Voreinstellungen für SF 10 und SF 11. Zukünftig könnte es Brückenknoten geben, die SF 10- und SF 11-Verkehr (oder sogar auf unterschiedlichen Frequenzen) überbrücken können.)
 
 ### F: Was ist ein „Advert“ in MeshCore?
 
@@ -133,8 +143,11 @@ MeshCore-Clients melden sich nur dann selbst an, wenn der Benutzer dies initiier
 
 ### F: Wie konfiguriert man einen Repeater oder einen Raumserver?
 **A:** Einer dieser Server kann mit einer der folgenden Optionen verwaltet werden:
-- Verbinde das Servergerät per USB-Kabel mit einem Computer mit Chrome unter https://flasher.meshcore.co.uk/ und verwende dann die Konsolenfunktion, um eine Verbindung zum Gerät herzustellen.
-- Dies ist erforderlich, um die Frequenz des Servergeräts einzustellen, falls diese nicht mit der Frequenz deiner Region oder deines Landes übereinstimmt.
+- Nachdem die Firmware eines Repeaters oder Raumservers auf ein LoRa-Gerät übertragen wurde, rufe <https://config.meshcore.dev> mit Chrome auf und verbinde dich über die Weboberfläche per USB-Seriell mit dem LoRa-Gerät. Dort kannst du den Namen des Servers, seine Frequenz und weitere zugehörige Einstellungen, Standort, Passwörter usw. festlegen.
+
+![444798777-4c888b61-4f60-49f3-bef8-81592cd660c3](https://github.com/user-attachments/assets/ed3910ba-5110-4f72-ab98-a603cbbf134b)
+
+- Wenn MeshCore zum ersten Mal auf ein LoRa-Gerät geflasht wird, muss die Frequenz des Servergeräts eingestellt werden, damit es die in deinem Land oder deiner Region zulässige Frequenz nutzt. Dies ist erforderlich, um die Frequenz des Servergeräts einzustellen, falls diese nicht mit der Frequenz deiner Region oder deines Landes übereinstimmt.
 - MeshCore-Smart-Device-Clients können Server fernverwalten.
 - Ein T-Deck mit freigeschalteter/registrierter MeshCore-Firmware. Die Fernverwaltung des Servers wird durch die Registrierung deines T-Decks bei Ripple Radios ermöglicht. Dies ist eine Möglichkeit, die MeshCore-Entwicklung zu unterstützen. Du kannst dein T-Deck hier registrieren:
 <https://buymeacoffee.com/ripplebiz/e/249834>
@@ -174,14 +187,18 @@ Du kanst den Breiten- und Längengrad von Google Maps abrufen, indem du mit der 
 ### F: Warum empfängt mein T-Deck Plus keine Satellitenverbindung?
 **A:** Beim T-Deck Plus sollte die GPS-Baudrate auf **38400** eingestellt sein. Außerdem wurde bei einigen T-Deck Plus-Geräten festgestellt, dass das GPS-Modul verkehrt herum eingebaut war, d. h. die GPS-Antenne zeigte nach unten statt nach oben. Wenn dein T-Deck Plus nach dem Einstellen der Baudrate auf 38400 immer noch keine Satellitenverbindung empfängt, mustt du das Gerät möglicherweise öffnen, um die GPS-Ausrichtung zu überprüfen.
 
+GPS ist auf dem T-Deck immer aktiviert. Du kannst die GPS-Zeitsynchronisierung überspringen, und das T-Deck versucht weiterhin, eine GPS-Verbindung herzustellen. Gehe zum Bildschirm „GPS-Info“. Dort sollte der Zähler „Sätze:“ ansteigen, wenn die Baudrate korrekt ist.
+
+[Quelle](https://discord.com/channels/826570251612323860/1330643963501351004/1356609240302616689)
+
 ### F: Warum empfängt mein OG (nicht Plus) T-Deck keine Satellitenverbindung?
 **A:** Das OG (nicht Plus) T-Deck wird ohne GPS geliefert. Wenn du deinem OG T-Deck ein GPS hinzugefügt hast, lese bitte in der Bedienungsanleitung deines GPS nach, welche Baudrate erforderlich ist. Alternativ kannst du versuchen, eine Baudrate von 9600, 19200 usw. bis 115200 einzustellen, um zu sehen, welche funktioniert.
 
 ### F: Welche SD-Kartengröße unterstützt das T-Deck?
 **A:** Nutzer hatten keine Probleme mit 16-GB- oder 32-GB-SD-Karten. Formatiere die SD-Karte im **FAT32**-Format.
 
-### F: Wie erhalte ich Karten auf T-Deck?
-**A:** Du benötigst Kartenkacheln. Hier kannst du vorab heruntergeladene Kartenkacheln herunterladen (eine gute Möglichkeit, die Entwicklung zu unterstützen):
+### F: Wie erhalte ich Karten auf dem T-Deck?
+**A:** Du benötigst Kartenkacheln (Tiles). Hier kannst du vorab heruntergeladene Kartenkacheln herunterladen (eine gute Möglichkeit, die Entwicklung zu unterstützen):
 - <https://buymeacoffee.com/ripplebiz/e/342543> (Europa)
 - <https://buymeacoffee.com/ripplebiz/e/342542> (USA)
 
@@ -400,6 +417,7 @@ Für den Heltec:
 `esptool.py -p /dev/ttyUSB0 --chip esp32-s3 write_flash 0x00000 firmware.bin`
 
 Wenn du eine Visual Studio Code Build-Bin-Datei flashst, flashe mit dem folgenden Offset:
+
 `esptool.py -p /dev/ttyUSB0 --chip esp32-s3 write_flash 0x10000 firmware.bin`
 
 Für den Pi
@@ -409,10 +427,8 @@ Hinweis: Erfordert den Befehl adafruit-nrfutil, der wie folgt installiert werden
  
 `pip install adafruit-nrfutil --break-system-packages`
 
-
 ```
 adafruit-nrfutil --verbose dfu serial --package t1000_e_bootloader-0.9.1-5-g488711a_s140_7.3.0.zip -p /dev/ttyACM0 -b 115200 --singlebank --touch 1200
-
 ```
 [Quelle](https://discord.com/channels/826570251612323860/1330643963501351004/1342120825251299388)
  
@@ -466,71 +482,33 @@ Du kannst die Epoch-Zeit unter <https://www.epochconverter.com/> abrufen und dam
 
 ---
 ## Weitere Fragen:
-### F: Wie aktualisiere ich die Firmware von Repeater und Raumserver drahtlos?
+### F: Wie aktualisiere ich ESP32-basierte Geräte drahtlos?
 
-**A:** ONur nRF-basierte RAK4631- und Heltec T114-OTA-Firmware-Updates werden mit der nRF-Smartphone-App verifiziert. Lilygo T-Echo funktioniert derzeit nicht.
-Du kannst die Firmware von Repeatern und Raumservern über eine Bluetooth-Verbindung zwischen deinem Smartphone und deinem LoRa-Radio mithilfe der nRF-App aktualisieren.
+**A:** Für ESP32-basierte Geräte (z. B. Heltec V3):
 
-1. Lade die ZIP-Datei für den jeweiligen Knoten vom Web-Flasher auf dein Smartphone herunter.
-2. Melde dich im Telefon-Client als Administrator am Repeater an (Standardkennwort: „password“), um den Befehl „start ota“ an den Repeater oder Raumserver zu senden und das Gerät in den OTA-DFU-Modus zu versetzen.
+1. Lade auf auf flasher.meshcore.co.uk die **nicht-merged** Version der Firmware für dein ESP32-Gerät herunter (z. B. `Heltec_v3_repeater-v1.6.2-4449fd3.bin`, ohne `merged` im Dateinamen).
+2. Melde dich in der MeshCore-App mit Administratorrechten remote bei dem zu aktualisierenden Repeater an.
+4. Öffne die Befehlszeile, gebe `start ota` ein und drücke die Eingabetaste.
+5. Du solltest `OK` sehen, um zu bestätigen, dass sich das Repeater-Gerät nun im OTA-Modus befindet.
+6. Der Befehl `start ota` auf einem ESP32-basierten Gerät startet einen WLAN-Hotspot namens `MeshCore OTA`.
+7. Verbinde dich von deinem Smartphone oder Computer aus mit dem `MeshCore OTA`-Hotspot.
+8. Rufe in einem Browser http://192.168.4.1/update auf und lade die nicht zusammengeführte Bin-Datei vom Flasher hoch.
 
-![image](https://github.com/user-attachments/assets/889bb81b-7214-4a1c-955a-396b5a05d8ad)
-1. „start ota“ kann über die USB-Seriell-Konsole auf der Web-Flasher-Seite oder über ein T-Deck gestartet werden.
-4. Lade die nRF-App auf deinem Smartphone herunter, starte sie und suchen nach Bluetooth-Geräten.
-5. Verbinde dich mit dem zu aktualisierenden Repeater/Raumserverknoten.
-1. Die nRF-App ist sowohl für Android als auch für iOS verfügbar.
+### **F:** Wie aktualisiere ich die Firmware von nRF-Repeatern (RAK, T114, Seed XIAO) und Raumservern drahtlos mit der neuen, einfacheren DFU-App?
 
-**Android fährt nach dem iOS-Abschnitt fort:**
+**A:** Die folgenden Schritte funktionieren sowohl auf Android als auch auf iOS, da nRF die Benutzeroberfläche beider Apps auf beiden Plattformen vereinheitlicht hat:
 
-**iOS fährt hier fort:**
-5. Nach erfolgreicher Verbindung wird ein „DFU“-Symbol angezeigt. ![Eingefügtes Bild 20250309173039](https://github.com/user-attachments/assets/af7a9f78-8739-4946-b734-02bade9c8e71)
-erscheint oben rechts in der App
-
-![Eingefügtes Bild 20250309171919](https://github.com/user-attachments/assets/08007ec8-4924-49c1-989f-ca2611e78793)
-
-6. Scrolle nach unten, um die PRN-Nummer(n) zu ändern:
-
-![Eingefügtes Bild 20250309190158](https://github.com/user-attachments/assets/11f69cdd-12f3-4696-a6fc-14a78c85fe32)
-
-- Für T114 ändere die Anzahl der Pakete (PRN(s)) auf 8.
-- Für RAK können es 10 sein, es funktioniert aber auch mit 8.
-
-7. Klicke auf das DFU-Symbol ![Bild eingefügt 20250309173039](https://github.com/user-attachments/assets/af7a9f78-8739-4946-b734-02bade9c8e71), wähle den Dateityp zum Hochladen (ZIP) und wähle anschließend die ZIP-Datei aus, die du zuvor vom Web Flasher heruntergeladen haben.
-8. Der Upload-Vorgang wird nun gestartet. Wenn alles gut geht, wird der Knoten zurückgesetzt und erfolgreich geflasht.
-
-![Bild eingefügt 20250309190342](https://github.com/user-attachments/assets/a60e25d0-33b8-46cf-af90-20a7d8ac2adb)
-
-**Die Android-Anleitung wird unten fortgesetzt:**
-1. Tippe oben links in der nRF Connect App auf Android auf das 3-Balken-Hamburger-Menü, dann auf „Einstellungen“ und dann auf „nRF5 DFU-Optionen“.
-
-![Android nRF Hamburger](https://github.com/user-attachments/assets/ea6dfeef-9367-4830-bd70-1441d517c706)
-
-![Android nRF Einstellungen](https://github.com/user-attachments/assets/c63726bf-cecd-4987-be68-afb6358c7190)
-
-![Android nRF DFU-Optionen](https://github.com/user-attachments/assets/b20e872f-5122-41d9-90df-0215cff5fbc9)
-
-2. Ändere die Paketanzahl auf „10“ für RAK und „8“ für Heltec T114.
-
-![Android nRF Paketanzahl](https://github.com/user-attachments/assets/c092adaf-4cb3-460b-b7ef-8d7f450d602b)
-
-3. Kehre zum Hauptbildschirm zurück.
-4. Dein LoRa-Gerät sollte sich bereits im DFU-Modus befinden.
-5. Tippe auf Klicke auf „SCANNER“ und anschließend auf „SCANNEN“, um das zu aktualisierende Gerät zu finden. Tippe anschließend auf „VERBINDEN“.
-
-![Android nRF Scanner Scan Connect](https://github.com/user-attachments/assets/37218717-f167-48b6-a6ca-93d132ef77ca)
-
-6. Tippe oben links in der nRF Connect App auf das DFU-Symbol neben den drei Punkten.
-
-![Android nRF DFU](https://github.com/user-attachments/assets/1ec3b818-bf0c-461f-8fdf-37c41a63cafa)
-
-7. Wähle „Distributionspaket (ZIP)“ und klicke auf „OK“.
-
-![Android nRF Distributionspaket (ZIP)](https://github.com/user-attachments/assets/e65f5616-9793-44f5-95c0-a3eb15aa7152)
-
-8. Wähle die Firmware-Datei im ZIP-Format aus, die du zuvor vom MeshCore Web Flasher heruntergeladen haben. Das Update startet, sobald du auf die Datei tippst.
-
-![Android nRF FW-Aktualisierung](https://github.com/user-attachments/assets/0814d123-85ce-4c87-90a7-e1a25dc71900)
-
-9. Nach Abschluss des Aktualisierungsvorgangs wird die Verbindung des Geräts zur nRF-App getrennt und das LoRa-Gerät aktualisiert.
+1. Lade die DFU-App von nRF aus dem iOS App Store oder Android Play Store herunter. Kommentar hinzufügen. Weitere Aktionen.
+2. Lade auf flasher.meshcore.co.uk die **ZIP**-Version der Firmware für dein nRF-Gerät (z. B. RAK, Heltec T114 oder Seeed Studios Xiao) herunter. 
+3. Melde dich in der MeshCore-App mit Administratorrechten bei dem zu aktualisierenden Repeater an.
+4. Wechsel zur Registerkarte Befehlszeile, gebe `start ota ein und drücke die Eingabetaste.
+5. Du solltest `OK` sehen, um zu bestätigen, dass sich der Repeater nun im OTA-Modus befindet.
+6. Starte die DFU-App und wähle oben rechts `Einstellungen`.
+7. Aktiviere `Packets receipt notifications` und änder die `Number of Packets` auf 10 für RAK und 8 für T114. 8 funktioniert auch für den RAK.
+8. Wähle die heruntergeladene Firmware-ZIP-Datei aus.
+9. Wähle das zu aktualisierende Gerät aus. Sollte das zu aktualisierende Gerät nicht in der Liste enthalten sein, aktiviere OTA erneut.
+10. Tippe auf `Upload`, um das OTA-Update zu starten.
+11. Sollte das Update fehlschlagen, schalte Bluetooth auf deinem Smartphone aus und wieder ein. Sollte dies nicht funktionieren, starte dein Smartphone neu.
+12. Warte, bis das Update abgeschlossen ist. Dies kann einige Minuten dauern.
 
 ---
