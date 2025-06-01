@@ -539,7 +539,7 @@ You can get the epoch time on <https://www.epochconverter.com/> and use it to se
 ### 7.2 Q: How to update ESP32-based devices over the air?
 
 **A:** For ESP32-based devices (e.g. Heltec V3):
-1. On flasher.meshcore.co.us, download the **non-merged** version of the firmware for your ESP32 device (e.g. `Heltec_v3_repeater-v1.6.2-4449fd3.bin`, no `"merged"` in the file name)
+1. On flasher.meshcore.co.uk, download the **non-merged** version of the firmware for your ESP32 device (e.g. `Heltec_v3_repeater-v1.6.2-4449fd3.bin`, no `"merged"` in the file name)
 2. From the MeshCore app, login remotely to the repeater you want to update with admin priviledge
 4. Go to the Command Line tab, type `start ota` and hit enter.
 5. you should see `OK` to confirm the repeater device is now in OTA mode
@@ -552,8 +552,8 @@ You can get the epoch time on <https://www.epochconverter.com/> and use it to se
 
 **A:** The steps below work on both Android and iOS as nRF has made both apps' user interface the same on both platforms:
 
-1. Download nRF's DFU app from iOS App Store or Android's Play Store
-2. On flasher.meshcore.co.us, download the **ZIP** version of the firmware for your nRF device (e.g. RAK or Heltec T114 or Seeed Studio's Xiao)
+1. Download nRF's DFU app from iOS App Store or Android's Play Store, you can find the app by searching for `nrf dfu`, the app's full name is `nRF Device Firmware Update`
+2. On flasher.meshcore.co.uk, download the **ZIP** version of the firmware for your nRF device (e.g. RAK or Heltec T114 or Seeed Studio's Xiao)
 3. From the MeshCore app, login remotely to the repeater you want to update with admin priviledge
 4. Go to the Command Line tab, type `start ota` and hit enter.
 5. you should see `OK` to confirm the repeater device is now in OTA mode
