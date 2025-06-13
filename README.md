@@ -591,12 +591,15 @@ Separately, starting in firmware version 1.7.0, there is a CLI Rescue mode.  If 
 
 ### 7.2 Q: Is there a way to lower the chance of a failed OTA device firmware update (DFU)?
 
-**A:** Yes, developer `che aporeps` has an enhanced OTA DFU bootloader for nRF52 based devices.  With this bootloader, if an OTA firmware update fails, the device goes to DFU mode when reboot, and you can try over the air firmware update again.  Currently, the following boards are supported:
+**A:** Yes, developer `che aporeps` has an enhanced OTA DFU bootloader for nRF52 based devices.  With this bootloader, if it detects that the application firmware is invalid, it falls back to OTA DFU mode so you can attempt to flash again to recover.  This bootloader has other changes to make the OTA DFU process more fault tolerant. 
+
+Refer to https://github.com/oltaco/Adafruit_nRF52_Bootloader_OTAFIX for the latest information.
+
+Currently, the following boards are supported:
 - Nologo ProMicro
 - Seeed Studio XIAO nRF52840 BLE
 - Seeed Studio XIAO nRF52840 BLE SENSE
 - RAK 4631
-You can find this safer bootloader at https://github.com/oltaco/Adafruit_nRF52_Bootloader_OTAFIX
 
 
 ---
