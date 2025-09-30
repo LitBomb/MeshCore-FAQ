@@ -61,20 +61,23 @@ author: https://github.com/LitBomb<!-- omit from toc -->
     - [5.14.3. Python MeshCore](#5143-python-meshcore)
     - [5.14.4. meshcore-cli](#5144-meshcore-cli)
     - [5.14.5. meshcore.js](#5145-meshcorejs)
+    - [5.14.6. pyMC\_core](#5146-pymc_core)
 - [6. Troubleshooting](#6-troubleshooting)
   - [6.1. Q: My client says another client or a repeater or a room server was last seen many, many days ago.](#61-q-my-client-says-another-client-or-a-repeater-or-a-room-server-was-last-seen-many-many-days-ago)
   - [6.2. Q: A repeater or a client or a room server I expect to see on my discover list (on T-Deck) or contact list (on a smart device client) are not listed.](#62-q-a-repeater-or-a-client-or-a-room-server-i-expect-to-see-on-my-discover-list-on-t-deck-or-contact-list-on-a-smart-device-client-are-not-listed)
   - [6.3. Q: How to connect to a repeater via BLE (Bluetooth)?](#63-q-how-to-connect-to-a-repeater-via-ble-bluetooth)
-  - [6.4. Q: I can't connect via Bluetooth, what is the Bluetooth pairing code?](#64-q-i-cant-connect-via-bluetooth-what-is-the-bluetooth-pairing-code)
-  - [6.5. Q: My Heltec V3 keeps disconnecting from my smartphone.  It can't hold a solid Bluetooth connection.](#65-q-my-heltec-v3-keeps-disconnecting-from-my-smartphone--it-cant-hold-a-solid-bluetooth-connection)
-  - [6.6. Q: My RAK/T1000-E/xiao\_nRF52 device seems to be corrupted, how do I wipe it clean to start fresh?](#66-q-my-rakt1000-exiao_nrf52-device-seems-to-be-corrupted-how-do-i-wipe-it-clean-to-start-fresh)
-  - [6.7. Q: WebFlasher fails on Linux with failed to open](#67-q-webflasher-fails-on-linux-with-failed-to-open)
+  - [6.4. Q: My companion isn't showing up over Bluetooth?](#64-q-my-companion-isnt-showing-up-over-bluetooth)
+  - [6.5. Q: I can't connect via Bluetooth, what is the Bluetooth pairing code?](#65-q-i-cant-connect-via-bluetooth-what-is-the-bluetooth-pairing-code)
+  - [6.6. Q: My Heltec V3 keeps disconnecting from my smartphone.  It can't hold a solid Bluetooth connection.](#66-q-my-heltec-v3-keeps-disconnecting-from-my-smartphone--it-cant-hold-a-solid-bluetooth-connection)
+  - [6.7. Q: My RAK/T1000-E/xiao\_nRF52 device seems to be corrupted, how do I wipe it clean to start fresh?](#67-q-my-rakt1000-exiao_nrf52-device-seems-to-be-corrupted-how-do-i-wipe-it-clean-to-start-fresh)
+  - [6.8. Q: WebFlasher fails on Linux with failed to open](#68-q-webflasher-fails-on-linux-with-failed-to-open)
 - [7. Other Questions:](#7-other-questions)
   - [7.1. Q: How to update nRF (RAK, T114, Seed XIAO) repeater and room server firmware over the air using the new simpler DFU app?](#71-q-how-to-update-nrf-rak-t114-seed-xiao-repeater-and-room-server-firmware-over-the-air-using-the-new-simpler-dfu-app)
   - [7.2. Q: How to update ESP32-based devices over the air?](#72-q-how-to-update-esp32-based-devices-over-the-air)
   - [7.3. Q: Is there a way to lower the chance of a failed OTA device firmware update (DFU)?](#73-q-is-there-a-way-to-lower-the-chance-of-a-failed-ota-device-firmware-update-dfu)
   - [7.4. Q: are the MeshCore logo and font available?](#74-q-are-the-meshcore-logo-and-font-available)
   - [7.5. Q: What is the format of a contact or channel QR code?](#75-q-what-is-the-format-of-a-contact-or-channel-qr-code)
+  - [7.6. Q: How do I connect to the companion via WIFI, e.g. using a heltec v3?](#76-q-how-do-i-connect-to-the-companion-via-wifi-eg-using-a-heltec-v3)
 
 ## 1. Introduction
 
@@ -100,7 +103,7 @@ Anyone is able to build anything they like on top of MeshCore without paying any
  Main web site: [https://meshcore.co.uk/](https://meshcore.co.uk/)
  Firmware Flasher: https://flasher.meshcore.co.uk/
  Phone Client Applications: https://meshcore.co.uk/apps.html
- MeshCore Fimrware GitHub: https://github.com/ripplebiz/MeshCore
+ MeshCore Firmware GitHub: https://github.com/ripplebiz/MeshCore
 
  NOTE: Andy Kirby has a very useful [intro video](https://www.youtube.com/watch?v=t1qne8uJBAc) for beginners.
  
@@ -158,7 +161,7 @@ The recommendation is to run repeater and room server on separate devices for th
 
 If you have two supported devices, and there are not many MeshCore users near you, flash both to BLE Companion firmware so you can use your devices to communicate with your near-by friends and family.
 
-If you have two supported devices, and there are other MeshcCore users nearby, you can flash one of your devices with BLE Companion firmware and flash another supported device to repeater firmware.  Place the repeater high above ground to extend your MeshCore network's reach.
+If you have two supported devices, and there are other MeshCore users nearby, you can flash one of your devices with BLE Companion firmware and flash another supported device to repeater firmware.  Place the repeater high above ground to extend your MeshCore network's reach.
 
 After you flashed the latest firmware onto your repeater device, keep the device connected to your computer via USB serial, use the console feature on the web flasher and set the frequency for your region or country, so your client can remote administer the repeater or room server over RF:
 
@@ -178,22 +181,17 @@ The T-Deck firmware is free to download and most features are available without 
 
 
 ### 2.3. Q: What frequencies are supported by MeshCore?
-**A:** It supports the 868MHz range in the UK/EU and the 915MHz range in New Zealand, Australia, and the USA. Countries and regions in these two frequency ranges are also supported. The firmware and client allow users to set their preferred frequency.  
-- Australia and New Zealand are on **915.8MHz**
-- UK and EU are on **869.525MHz**
-- Canada and USA are on **910.525MHz**
-- For other regions and countries, please check your local LoRa frequency
+**A:** It supports the 868MHz range in the UK/EU and the 915MHz range in New Zealand, Australia, and the USA. Countries and regions in these two frequency ranges are also supported. 
 
-In UK and EU, 867.5MHz is not allowed to use 250kHz bandwidth and it only allows 2.5% duty cycle for clients.  869.525Mhz allows an airtime of 10%, 250KHz bandwidth, and a higher EIRP, therefore MeshCore nodes can send more often and with more power. That is why this frequency is chosen for UK and EU.  This is also why Meshtastic also uses this frequency.  
+Use the smartphone client or the repeater setup feature on there web flasher to set your radios' RF settings by choosing the preset for your regions.  
 
-[Source](https://discord.com/channels/826570251612323860/1330643963501351004/1356540643853209641)
+Recently, as of October 2025, many regions have moved to the "narrow" setting, aka using BW62.5 and a lower SF number (instead of the original SF11).  For example, USA/Canada (Recommended) preset is 910.525MHz, SF7, BW62.5, CR5.  
 
-the rest of the radio settings are the same for all frequencies:  
-- Spread Factor (SF): 11  
-- Coding Rate (CR): 5  
-- Bandwidth (BW): 250.00  
+After extensive testing, many regions have switched or about to switch over to BW62.5 and SF7, 8, or 9.  Narrower bandwidth setting and lower SF setting allow MeshCore's radio signals to fit between interference in the ISM band, provide for a lower noise floor, better SNR, and faster transmissions.
 
-(Originally MeshCore started with SF 10.  recently (as of late April 2025) the community has advocated SF 11 also a viable option for longer range but a little slower transmission. Currently there are MeshCore meshes with SF 10 and SF 11.  Liam Cottle's smartphone app's presets now recommend SF 10 for Australia and SF 11 for all other regions and countries.  EU and UK has SF 10 and SF 11 presets.  Work with your local meshers on deciding with SF number is best for your use cases.  In the future, there may be bridge nodes that can bridge SF 10 and SF 11 (or even different frequencies) traffic.)
+If you have consensus from your community in your region to update your region's preset recommendation, please post your update request on  the [#meshcore-app](https://discord.com/channels/1343693475589263471/1391681655911088241) channel on the [MeshCore Discord server ](https://discord.gg/cYtQNYCCRK) to let Liam Cottle know.
+
+
 
 ### 2.4. Q: What is an "advert" in MeshCore?
 **A:** 
@@ -228,8 +226,7 @@ Repeater or room server can be administered with one of the options below:
   
 - After a repeater or room server firmware is flashed on to a LoRa device, go to <https://config.meshcore.dev> and use the web user interface to connect to the LoRa device via USB serial.  From there you can set the name of the server, its frequency and other related settings, location, passwords etc.
 
-![image](https://github.com/user-attachments/assets/bec28ff3-a7d6-4a1e-8602-cb6b290dd150)
-
+![image](https://github.com/user-attachments/assets/2a9d9894-e34d-4dbe-b57c-fc3c250a2d34)
  
 - Connect the server device using a USB cable to a computer running Chrome on https://flasher.meshcore.co.uk/, then use the `console` feature to connect to the device
 
@@ -375,7 +372,23 @@ https://github.com/meshcore-dev/MeshCore/blob/main/src/Packet.h#L19
 
 **SF is spreading factor** - how much should the communication spread in time
 
-**CR is coding rate** - https://www.thethingsnetwork.org/docs/lorawan/fec-and-code-rate/
+**CR is coding rate** - from: https://www.thethingsnetwork.org/docs/lorawan/fec-and-code-rate/
+
+TL;DR: default CR to 5 for good stable links.  If it is not a solid link and is intermittent, change to CR to 7 or 8.  
+
+Forward Error Correction is a process of adding redundant bits to the data to be transmitted. During the transmission, data may get corrupted by interference (changes from 0 to 1 / 1 to 0). These error correction bits are used at the receivers for restoring corrupted bits.
+
+The Code Rate of a forward error correction expresses the proportion of bits in a data stream that actually carry useful information.
+
+There are 4 code rates used in LoRaWAN:
+
+4/5
+4/6
+5/7
+4/8
+
+For example, if the code rate is 5/7, for every 5 bits of useful information, the coder generates a total of 7 bits of data, of which 2 bits are redundant.
+
 Making the bandwidth 2x wider (from BW125 to BW250) allows you to send 2x more bytes in the same time. Making the spreading factor 1 step lower (from SF10 to SF9) allows you to send 2x more bytes in the same time. 
 
 Lowering the spreading factor makes it more difficult for the gateway to receive a transmission, as it will be more sensitive to noise. You could compare this to two people taking in a noisy place (a bar for example). If you’re far from each other, you have to talk slow (SF10), but if you’re close, you can talk faster (SF7)
@@ -391,7 +404,7 @@ In MeshCore, only repeaters and room server with `set repeat on` repeat.
 
 **A:** If you used to reach a node through a repeater and the repeater is no longer reachable, the client will send the message using the existing (but now broken) known path, the message will fail after 3 retries, and the app will reset the path and send the message as flood on the last retry by default.  This can be turned off in settings.  If the destination is reachable directly or through another repeater, the new path will be used going forward.  Or you can set the path manually if you know a specific repeater to use to reach that destination.
 
-In the case if users are moving around frequently, and the paths are breaking, they just see the phone client retries and revert to flood to attempt to reestablish a path. 
+In the case if users are moving around frequently, and the paths are breaking, they just see the phone client retries and revert to flood to attempt to re-establish a path. 
 
 ### 5.4. Q: How does a node discovery a path to its destination and then use it to send messages in the future, instead of flooding every message it sends like Meshtastic?
 
@@ -463,7 +476,7 @@ Andy also has a video on how to build using VS Code:
 
 ### 5.10. Q: Are there other MeshCore related open source projects?
 
-**A:** [Liam Cottle](https://liamcottle.net)'s MeshCore web client and MeshCore Javascript libary are open source under MIT license.
+**A:** [Liam Cottle](https://liamcottle.net)'s MeshCore web client and MeshCore Javascript library are open source under MIT license.
 
 Web client: https://github.com/liamcottle/meshcore-web
 Javascript: https://github.com/liamcottle/meshcore.js
@@ -471,7 +484,7 @@ Javascript: https://github.com/liamcottle/meshcore.js
 ### 5.11. Q: Does MeshCore support ATAK
 **A:** ATAK is not currently on MeshCore's roadmap.
 
-Meshcore would not be best suited to ATAK  because MeshCore:
+Meshcore would not be best suited to ATAK because MeshCore:
 clients do not repeat and therefore you would need a network of repeaters in place
 will not have a stable path where all clients are constantly moving between repeaters
 
@@ -557,7 +570,8 @@ From here, reference repeater and room server command line commands on MeshCore 
 **A:** Yes.  See the following:
 
 #### 5.14.1. meshcoremqtt
-A Python script to send meshore debug and packet capture data to MQTT for analysis
+A Python script to send meshcore debug and packet capture data to MQTT for analysis.  Cisien's version is a fork of Andrew-a-g's and is being used to to collect data for https://map.w0z.is/messages and https://analyzer.letsme.sh/
+https://github.com/Cisien/meshcoretomqtt
 https://github.com/Andrew-a-g/meshcoretomqtt
 
 #### 5.14.2. MeshCore for Home Assistant
@@ -569,12 +583,16 @@ Bindings to access your MeshCore companion radio nodes in python.
 https://github.com/fdlamotte/meshcore_py
 
 #### 5.14.4. meshcore-cli  
-CLI interface to MeshCore companion radio over BLE, TCP, or serial.  Uses Pyton MeshCore above.
+CLI interface to MeshCore companion radio over BLE, TCP, or serial.  Uses Python MeshCore above.
  https://github.com/fdlamotte/meshcore-cli
 
 #### 5.14.5. meshcore.js
 A JavaScript library for interacting with a MeshCore device running the companion radio firmware
 https://github.com/liamcottle/meshcore.js
+
+#### 5.14.6. pyMC_core
+pyMC_Core is a Python port of MeshCore, designed for Raspberry Pi and similar hardware, it talks to LoRa modules over SPI.
+https://github.com/rightup/pyMC_core
 
 ---
 
@@ -591,15 +609,19 @@ You can get the epoch time on <https://www.epochconverter.com/> and use it to se
 ### 6.3. Q: How to connect to a repeater via BLE (Bluetooth)?
 **A:** You can't connect to a device running repeater firmware  via Bluetooth.  Devices running the BLE companion firmware you can connect to it via Bluetooth using the android app
 
-### 6.4. Q: I can't connect via Bluetooth, what is the Bluetooth pairing code?
+### 6.4. Q: My companion isn't showing up over Bluetooth?
+
+**A:** make sure that you flashed the Bluetooth companion firmware and not the USB-only companion firmware.
+
+### 6.5. Q: I can't connect via Bluetooth, what is the Bluetooth pairing code?
 
 **A:** the default Bluetooth pairing code is `123456`
 
-### 6.5. Q: My Heltec V3 keeps disconnecting from my smartphone.  It can't hold a solid Bluetooth connection.
+### 6.6. Q: My Heltec V3 keeps disconnecting from my smartphone.  It can't hold a solid Bluetooth connection.
 
 **A:** Heltec V3 has a very small coil antenna on its PCB for Wi-Fi and Bluetooth connectivity.  It has a very short range, only a few feet.  It is possible to remove the coil antenna  and replace it with a 31mm wire.  The BT range is much improved with the modification.
 
-### 6.6. Q: My RAK/T1000-E/xiao_nRF52 device seems to be corrupted, how do I wipe it clean to start fresh?
+### 6.7. Q: My RAK/T1000-E/xiao_nRF52 device seems to be corrupted, how do I wipe it clean to start fresh?
 
 **A:** 
 1. Connect USB-C cable to your device, per your device's instruction, get it to flash mode:
@@ -619,8 +641,7 @@ You can get the epoch time on <https://www.epochconverter.com/> and use it to se
 
 Separately, starting in firmware version 1.7.0, there is a CLI Rescue mode.  If your device has a user button (e.g. some RAK, T114), you can activate the rescue mode by hold down the user button of the device within 8 seconds of boot.  Then you can use the 'Console' on flasher.meshcore.co.uk 
 
-
-### 6.7. Q: WebFlasher fails on Linux with failed to open
+### 6.8. Q: WebFlasher fails on Linux with failed to open
 
 **A:** If the usb port doesn't have the right ownership for this task, the process fails with the following error:
 `NetworkError: Failed to execute 'open' on 'SerialPort': Failed to open serial port.`
@@ -637,13 +658,13 @@ Allow the browser user on it:
 
 1. Download nRF's DFU app from iOS App Store or Android's Play Store, you can find the app by searching for `nrf dfu`, the app's full name is `nRF Device Firmware Update`
 2. On flasher.meshcore.co.uk, download the **ZIP** version of the firmware for your nRF device (e.g. RAK or Heltec T114 or Seeed Studio's Xiao)
-3. From the MeshCore app, login remotely to the repeater you want to update with admin priviledge
+3. From the MeshCore app, login remotely to the repeater you want to update with admin privilege
 4. Go to the Command Line tab, type `start ota` and hit enter.
 5. you should see `OK` to confirm the repeater device is now in OTA mode
 6. Run the DFU app,tab `Settings` on the top right corner
 7. Enable `Packets receipt notifications`, and change `Number of Packets` to 10 for RAK, 8 for T114.  8 also works for RAK.  
 9. Select the firmware zip file you downloaded
-10. Select the device you want to update. If the device you want to updat is not on the list, try enabling`OTA` on the device again
+10. Select the device you want to update. If the device you want to update is not on the list, try enabling`OTA` on the device again
 11. If the device is not found, enable `Force Scanning` in the DFU app
 12. Tab the `Upload` to begin OTA update
 13. If it fails, try turning off and on Bluetooth on your phone.  If that doesn't work, try rebooting your phone.  
@@ -654,7 +675,7 @@ Allow the browser user on it:
 
 **A:** For ESP32-based devices (e.g. Heltec V3):
 1. On flasher.meshcore.co.uk, download the **non-merged** version of the firmware for your ESP32 device (e.g. `Heltec_v3_repeater-v1.6.2-4449fd3.bin`, no `"merged"` in the file name)
-2. From the MeshCore app, login remotely to the repeater you want to update with admin priviledge
+2. From the MeshCore app, login remotely to the repeater you want to update with admin privilege
 4. Go to the Command Line tab, type `start ota` and hit enter.
 5. you should see `OK` to confirm the repeater device is now in OTA mode
 6. The command `start ota` on an ESP32-based device starts a wifi hotspot named `MeshCore OTA`
@@ -694,5 +715,9 @@ where `&type` is:
 `room = 3`
 `sensor = 4`
 
+### 7.6. Q: How do I connect to the companion via WIFI, e.g. using a heltec v3?
+ **A:** 
+WiFi firmware requires you to compile it yourself, as you need to set the wifi ssid and password.
+Edit WIFI_SSID and WIFI_PWD in `./variants/heltec_v3/platformio.ini` and then flash it to your device.
 
 ---
