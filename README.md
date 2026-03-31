@@ -315,7 +315,7 @@ The original packet sender determines the path hash size. The most common origin
 
 ### 3.9.3. Q: **How do I change my companion's path hash size?**
 
-As of firmware version 1.14 and MeshCore app version 1.41.0, you can set your companion's message path hash size in `Settings (gear icon)`, `Experimental Settings`. 
+As of firmware version 1.14 and MeshCore app version 1.41.0, in the MeshCore app, you can set your companion's message path hash size in `Settings (gear icon)`, `Experimental Settings`. 
 
 Until your regional mesh has the vast majority of the repeaters updated to 1.14+ firmware, it is recommended to keep your companion at the default 1-byte because pre-1.14 repeaters will silently drop messages with larger path hashes.
 
